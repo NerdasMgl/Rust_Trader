@@ -232,8 +232,6 @@ The main loop frequency auto-adjusts to market volatility.
 | `VOLC_ENDPOINT` | 火山引擎 | Embedding API 端点 | - |
 | `VOLC_MODEL` | 火山引擎 | Embedding 模型 ID | 查看控制台模型列表 |
 | `DOUBAO_MODEL_ID` | 豆包 | 备用推理模型 | https://console.volcengine.com |
-| `DASHSCOPE_API_KEY` | 阿里云 | 阿里系模型兼容接口 | https://dashscope.console.aliyun.com |
-| `DASHSCOPE_BASE_URL` | 阿里云 | Dashscope API 端点 | - |
 
 ---
 
