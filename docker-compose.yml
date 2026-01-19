@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # 1. 账房先生 (Postgres)
+  db_ledger:
+    image: postgres:16
+    container_name: rust_trader_postgres
+    ports:
+      - "5432:5432" # 暴露端口给本机 cargo run 使用
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secure_password
+      - POSTGRES_DB=rust_trader
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d rust_trader"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. 参谋军师 (Qdrant)
+  db_brain:
+    image: qdrant/qdrant:latest
+    container_name: rust_trader_qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334" # 暴露端口给本机 cargo run 使用
+    volumes:
+      - ./data/qdrant:/qdrant/storage
+    restart: always
+
+# 使用方法:
+# 1. 启动数据库: docker-compose up -d
+# 2. 运行程序: cargo run

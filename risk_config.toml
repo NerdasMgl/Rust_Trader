@@ -1,0 +1,23 @@
+max_leverage = 10.0
+max_order_size_pct = 0.10
+daily_drawdown_limit = 0.10
+allowed_symbols = ["BTC-USDT-SWAP", "ETH-USDT-SWAP"]
+
+# [时间间隔配置]
+[timing]
+cycle_rest_sec = 300
+evolution_sec = 3600
+symbol_gap_sec = 2
+
+# [技术指标参数]
+[indicators]
+kline_interval = "1H"
+rsi_period = 14
+atr_period = 14
+ema_fast = 20
+ema_slow = 50
+
+# [关键修改] 回归百分比阈值 (ROE)
+[thresholds]
+autopsy_roe_pct = -0.02   # [Fix] 亏损率超过 2% (ROE) 触发复盘，确保捕获常规止损
+scanner_pump_pct = 0.05   # 涨幅超过 5% 触发机会扫描

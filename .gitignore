@@ -1,0 +1,31 @@
+# 依赖和构建
+target/
+Cargo.lock
+
+# 环境配置
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志和临时文件
+*.log
+*.tmp
+*.bak
+
+# 数据库
+*.db
+*.sqlite
+
+# Docker
+docker-compose.override.yml
