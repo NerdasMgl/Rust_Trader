@@ -29,32 +29,32 @@
 
 ```mermaid
 graph TD
-    subgraph PERCEPTION ["👁️ PERCEPTION (感知中枢)"]
-        OKX[OKX 行情数据] -->|WebSocket/REST| Fetcher
-        News[全球新闻] -->|API| Sentinel
-        Social[Reddit 情绪] -->|API| Sentinel
-        Fetcher & Sentinel -->|序列化上下文| State[市场全息状态]
+    subgraph PERCEPTION ["👁️ PERCEPTION"]
+        OKX[OKX Market Data] -->|WebSocket/REST| Fetcher
+        News[Global News] -->|API| Sentinel
+        Social[Reddit Sentiment] -->|API| Sentinel
+        Fetcher & Sentinel -->|Context| State[Market State]
     end
 
-    subgraph BRAIN ["🧠 BRAIN (决策中枢)"]
-        State -->|相似度查询| VectorDB[(Qdrant 向量记忆)]
-        VectorDB -->|提取历史教训/机会| RAG[RAG 上下文]
-        State & RAG -->|Prompt 工程| LLM[DeepSeek-R1]
-        LLM -->|深度推理 & 概率估算| Decision[交易计划]
-        Decision -->|胜率 & 赔率| Kelly[凯利公式风控]
+    subgraph BRAIN ["🧠 BRAIN"]
+        State -->|Query| VectorDB[(Qdrant Memory)]
+        VectorDB -->|RAG Context| RAG
+        State & RAG -->|Prompt| LLM[DeepSeek-R1]
+        LLM -->|Decision| Decision
+        Decision -->|Kelly| Kelly[Kelly Criterion]
     end
 
-    subgraph ACTION ["⚡ ACTION (执行中枢)"]
-        Kelly -->|计算最佳仓位| Executor
-        Executor -->|原子订单 (指数重试)| Exchange[OKX 交易所]
-        Exchange -->|成交推送| Notifier[钉钉通知]
+    subgraph ACTION ["⚡ ACTION"]
+        Kelly -->|Position| Executor
+        Executor -->|Order| Exchange[OKX Exchange]
+        Exchange -->|Notify| Notifier[DingTalk]
     end
 
-    subgraph EVOLUTION ["🧬 EVOLUTION (进化中枢)"]
-        Exchange -->|同步交割单| PnL[PnL 监控器]
-        PnL -->|检测到亏损| Autopsy[尸检医生]
-        Autopsy -->|提取失败教训| VectorDB
-        Scanner[机会扫描器] -->|发现踏空行情| VectorDB
+    subgraph EVOLUTION ["🧬 EVOLUTION"]
+        Exchange -->|Logs| PnL[PnL Monitor]
+        PnL -->|Loss| Autopsy[Autopsy]
+        Autopsy -->|Lesson| VectorDB
+        Scanner -->|Missed| VectorDB
     end
 
     PERCEPTION --> BRAIN
@@ -62,6 +62,12 @@ graph TD
     ACTION --> EVOLUTION
     EVOLUTION --> BRAIN
 ```
+
+**图例说明**：
+- 👁️ **Perception (感知)**: 收集 OKX 行情、全球新闻、Reddit 情绪
+- 🧠 **Brain (决策)**: DeepSeek 推理 + RAG 记忆检索 + 凯利公式风控
+- ⚡ **Action (执行)**: OKX 交易所下单 + 钉钉通知
+- 🧬 **Evolution (进化)**: 亏损复盘 + 踏空学习 → 更新向量记忆
 
 ## ✨ 核心特性
 
@@ -172,7 +178,7 @@ graph TD
 | `HTTPS_PROXY` | HTTPS 代理地址 |
 | `SOCKS5_PROXY` | SOCKS5 代理地址 |
 
-### 9️⃣ 开发调试 (必需)
+### 9️⃣ 开发调试 (可选)
 
 | 变量名 | 说明 |
 |--------|------|
