@@ -231,13 +231,12 @@ The main loop frequency auto-adjusts to market volatility.
 | `VOLC_API_KEY` | 火山引擎 | **向量嵌入**：将文本转换为 2560 维向量存入 Qdrant | https://console.volcengine.com/iam/access-key |
 | `VOLC_ENDPOINT` | 火山引擎 | Embedding API 端点 | - |
 | `VOLC_MODEL` | 火山引擎 | Embedding 模型 ID | 查看控制台模型列表 |
-| `DOUBAO_MODEL_ID` | 豆包 | 备用推理模型 | https://console.volcengine.com |
 
 ---
 
 ### 3️⃣ 交易所 | Exchange (必需 | Required)
 
-**OKX 交易所 | OKX Exchange**:
+**OKX 交易所 | OKX Exchange**(我习惯用okx，要是想自己配置，可以让AI ide帮你改成其他交易所的，取决于你):
 
 | 变量名 | 说明 |
 |--------|------|
